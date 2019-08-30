@@ -1,12 +1,12 @@
 {
   "name": "webpack-scaffold-flatiron-vanilla-js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "main": "generator.js",
   "scripts": {},
   "np": {
-		"tests": false
-	},
+    "tests": false
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
