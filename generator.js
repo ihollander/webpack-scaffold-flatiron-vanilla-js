@@ -53,6 +53,7 @@ module.exports = class WebpackGenerator extends Generator {
 
       this.options.env.configuration.dev.webpackOptions = createDevConfig(this.answers)
       this.options.env.configuration.dev.topScope = [
+        "const path = require('path')",
         "const HtmlWebpackPlugin = require('html-webpack-plugin')",
         "const CleanWebpackPlugin = require('clean-webpack-plugin')",
         "const CopyWebpackPlugin = require('copy-webpack-plugin')"
@@ -69,8 +70,8 @@ module.exports = class WebpackGenerator extends Generator {
 
     // html template
     this.fs.copyTpl(
-      this.templatePath('public/index.html'),
-      this.destinationPath(`${publicFolder}/index.html`),
+      this.templatePath(`${src}/index.html`),
+      this.destinationPath(`${src}/index.html`),
       { title: this.answers.name }
     );
 

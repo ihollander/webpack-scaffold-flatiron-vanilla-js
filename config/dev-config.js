@@ -6,9 +6,13 @@ module.exports = answers => {
     mode: `"development"`,
     plugins: [
       "new CleanWebpackPlugin()",
-      `new HtmlWebpackPlugin({templateParameters:{PROJECT_NAME: "${name}"},template: './${publicFolder}/index.html'})`,
-      `new CopyWebpackPlugin([{from: './${publicFolder}',to: './${dist}',toType: 'dir',ignore: ['.DS_Store']}])`,
+      `new HtmlWebpackPlugin({templateParameters:{PROJECT_NAME: "${name}"},template: './${src}/index.html'})`,
+      `new CopyWebpackPlugin([{from: './${publicFolder}',to: './${dist}', toType: 'dir', ignore: ['.DS_Store']}])`,
     ],
+    output: {
+      filename: `"assets/[name].[contenthash].js"`,
+      path: `path.resolve(__dirname, "${publicFolder}")`
+    },
     module: {
       rules: [
         {
