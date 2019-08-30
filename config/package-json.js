@@ -21,7 +21,8 @@ module.exports = (answers) => {
       "html-webpack-plugin": "^3.2.0",
       "style-loader": "^0.23.1",
       "webpack": "^4.29.6",
-      "webpack-cli": "^3.3.0"
+      "webpack-cli": "^3.3.0",
+      "copy-webpack-plugin": "^5.0.1",
     },
     "dependencies": {
       "@babel/polyfill": "^7.4.3"

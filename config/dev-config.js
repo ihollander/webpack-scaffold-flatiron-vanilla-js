@@ -3,7 +3,7 @@ module.exports = answers => {
 
   return {
     entry: `"./${src}/${entry}.js"`,
-    mode: "development",
+    mode: `"development"`,
     plugins: [
       "new CleanWebpackPlugin()",
       `new HtmlWebpackPlugin({templateParameters:{PROJECT_NAME: "${name}"},template: './${publicFolder}/index.html'})`,
@@ -12,16 +12,16 @@ module.exports = answers => {
     module: {
       rules: [
         {
-          test: /\.css$/,
-          use: ["style-loader", "css-loader"]
+          test: "/\.css$/",
+          use: [`"style-loader"`, `"css-loader"`]
         },
         {
-          test: /\.js$/,
-          exclude: /node_modules/,
+          test: "/\.js$/",
+          exclude: "/node_modules/",
           use: {
-            loader: "babel-loader",
+            loader: `"babel-loader"`,
             options: {
-              presets: ["@babel/preset-env"]
+              presets: [`"@babel/preset-env"`]
             }
           }
         }

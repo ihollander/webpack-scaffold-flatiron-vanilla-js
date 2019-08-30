@@ -48,6 +48,7 @@ module.exports = class WebpackGenerator extends Generator {
       this.answers.inFolder = (answers.inFolder !== '') ? answers.inFolder : this.defaults.inFolder;
       this.answers.entry = (answers.entry !== '') ? answers.entry : this.defaults.entry;
       this.answers.outFolder = (answers.outFolder !== '') ? answers.outFolder : this.defaults.outFolder;
+      this.answers.publicFolder = (answers.publicFolder !== '') ? answers.publicFolder : this.defaults.publicFolder;
       this.manager[this.answers.manager] = true
 
       this.options.env.configuration.dev.webpackOptions = createDevConfig(this.answers)
@@ -59,17 +60,34 @@ module.exports = class WebpackGenerator extends Generator {
     })
   }
   writing() {
+    const { name, entry, inFolder: src, publicFolder } = this.answers;
+    this.destinationRoot(name) // create project directory
+
     this.config.set('configuration', this.options.env.configuration);
-    // => We write each json into the right file in the file system
+
     this.fs.extendJSON(this.destinationPath('package.json'), createPackageJson(this.answers));
 
-    const { name, publicFolder } = this.answers;
-
+    // html template
     this.fs.copyTpl(
       this.templatePath('public/index.html'),
       this.destinationPath(`${publicFolder}/index.html`),
-      { title: name }
+      { title: this.answers.name }
     );
+
+    // additional templates
+    const templates = [
+      { src: 'public/favicon.ico', dist: `${publicFolder}/favicon.ico` },
+      { src: 'src/main.js', dist: `${src}/${entry}.js` },
+      { src: 'config/gitignore', dist: '.gitignore' }
+    ]
+
+    templates.forEach(template => {
+      this.fs.copyTpl(
+        this.templatePath(template.src),
+        this.destinationPath(template.dist)
+      );
+    })
+
   }
   install() {
     // => Installs dependencies using yarn

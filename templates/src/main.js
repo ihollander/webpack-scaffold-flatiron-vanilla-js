@@ -1,0 +1,1 @@
+console.log("%cHello from my app!", "color: blue")
