@@ -1,6 +1,7 @@
 const Generator = require('yeoman-generator');
 const { List, Input, InputValidate } = require('@webpack-cli/webpack-scaffold');
 
+const createProdConfig = require( './config/prod-config' );
 const createDevConfig = require('./config/dev-config');
 const createPackageJson = require('./config/package-json');
 
@@ -8,6 +9,9 @@ module.exports = class WebpackGenerator extends Generator {
   constructor(args, opts) {
     super(args, opts);
     opts.env.configuration = {
+      prod: {
+        webpackOptions: {}
+      },
       dev: {
         webpackOptions: {}
       }
@@ -51,13 +55,26 @@ module.exports = class WebpackGenerator extends Generator {
       this.answers.publicFolder = (answers.publicFolder !== '') ? answers.publicFolder : this.defaults.publicFolder;
       this.manager[this.answers.manager] = true
 
+      // DEV
       this.options.env.configuration.dev.webpackOptions = createDevConfig(this.answers)
       this.options.env.configuration.dev.topScope = [
         "const path = require('path')",
-        "const HtmlWebpackPlugin = require('html-webpack-plugin')",
-        "const CleanWebpackPlugin = require('clean-webpack-plugin')",
-        "const CopyWebpackPlugin = require('copy-webpack-plugin')"
+        "const HtmlWebpackPlugin = require('html-webpack-plugin')"
       ]
+      this.options.env.configuration.dev.configName = 'dev'; 
+
+      // PROD
+      this.options.env.configuration.prod.webpackOptions = createProdConfig(this.answers)
+      this.options.env.configuration.prod.topScope = [
+        "const path = require('path')",
+        "const { CleanWebpackPlugin } = require('clean-webpack-plugin')",
+        "const MiniCssExtractPlugin = require('mini-css-extract-plugin')",
+        "const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')",
+        "const TerserPlugin = require('terser-webpack-plugin')",
+        "const HtmlWebpackPlugin = require('html-webpack-plugin')"
+      ]
+      this.options.env.configuration.prod.configName = 'prod'; 
+      
     })
   }
   writing() {
@@ -91,10 +108,7 @@ module.exports = class WebpackGenerator extends Generator {
 
   }
   install() {
-    // => Installs dependencies using yarn
-    this.installDependencies({
-      npm: this.answers.manager === 'npm',
-      yarn: this.answers.manager === 'yarn'
-    });
+    // => Installs dependencies
+    this.installDependencies(this.manager);
   }
 };
