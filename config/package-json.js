@@ -30,7 +30,8 @@ module.exports = answers => {
       "webpack-dev-server": "^3.8.0",
     },
     "dependencies": {
-      "@babel/polyfill": "^7.4.3"
+      "@babel/polyfill": "^7.4.3",
+      "normalize.css": "^8.0.1"
     }
   })
 }

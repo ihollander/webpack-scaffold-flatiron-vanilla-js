@@ -26,7 +26,7 @@ module.exports = class WebpackGenerator extends Generator {
     this.defaults = {
       name: 'my-js-project',
       inFolder: 'src',
-      entry: 'main',
+      entry: 'index',
       outFolder: 'dist',
       publicFolder: 'public'
     }
@@ -87,7 +87,7 @@ module.exports = class WebpackGenerator extends Generator {
 
     // html template
     this.fs.copyTpl(
-      this.templatePath(`${src}/index.html`),
+      this.templatePath(`src/index.html`),
       this.destinationPath(`${src}/index.html`),
       { title: this.answers.name }
     );
@@ -95,7 +95,8 @@ module.exports = class WebpackGenerator extends Generator {
     // additional templates
     const templates = [
       { src: 'public/favicon.ico', dist: `${publicFolder}/favicon.ico` },
-      { src: 'src/main.js', dist: `${src}/${entry}.js` },
+      { src: 'src/index.js', dist: `${src}/${entry}.js` },
+      { src: 'src/styles/app.css', dist: `${src}/styles/app.css` },
       { src: 'config/gitignore', dist: '.gitignore' }
     ]
 
