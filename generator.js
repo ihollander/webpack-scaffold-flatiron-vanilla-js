@@ -4,6 +4,7 @@ const { List, Input, InputValidate } = require('@webpack-cli/webpack-scaffold');
 const createProdConfig = require( './config/prod-config' );
 const createDevConfig = require('./config/dev-config');
 const createPackageJson = require('./config/package-json');
+const createGitignore = require('./config/gitignore');
 
 module.exports = class WebpackGenerator extends Generator {
   constructor(args, opts) {
@@ -84,6 +85,7 @@ module.exports = class WebpackGenerator extends Generator {
     this.config.set('configuration', this.options.env.configuration);
 
     this.fs.extendJSON(this.destinationPath('package.json'), createPackageJson(this.answers));
+    this.fs.write(".gitignore", createGitignore(this.answers));
 
     // html template
     this.fs.copyTpl(
@@ -96,8 +98,7 @@ module.exports = class WebpackGenerator extends Generator {
     const templates = [
       { src: 'public/favicon.ico', dist: `${publicFolder}/favicon.ico` },
       { src: 'src/index.js', dist: `${src}/${entry}.js` },
-      { src: 'src/styles/app.css', dist: `${src}/styles/app.css` },
-      { src: 'config/gitignore', dist: '.gitignore' }
+      { src: 'src/styles/app.css', dist: `${src}/styles/app.css` }
     ]
 
     templates.forEach(template => {

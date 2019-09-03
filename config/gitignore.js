@@ -1,6 +1,9 @@
+module.exports = ({ outFolder: dist }) => {
+
+  return `
 .DS_Store
 node_modules
-/dist
+/${dist}
 
 # local env files
 .env.local
@@ -18,4 +21,6 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
-*.sw*
+*.sw*  
+  `
+}
