@@ -1,0 +1,33 @@
+body {
+  background-color: #FFF8E7;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+}
+
+a, a:hover, a:visited {
+  text-decoration: none;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #333;
+  padding: 1rem;
+  color: #f1f1f1;
+  text-align: right;
+}
+
+footer a {
+  color: lightskyblue;
+}
+
+#app {
+  margin: 30vh auto;
+}
+
+#app h1, h2 {
+  text-align: center;
+}

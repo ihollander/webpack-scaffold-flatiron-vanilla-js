@@ -1,4 +1,4 @@
-module.exports = ({ name, entry, inFolder: src, outFolder: dist }) => ({
+module.exports = ({ name, entry, inFolder: src, outFolder: dist, publicFolder }) => ({
   mode: `"production"`,
   entry: {
     main: `"./${src}/${entry}.js"`,
@@ -13,7 +13,7 @@ module.exports = ({ name, entry, inFolder: src, outFolder: dist }) => ({
       `new TerserPlugin()`,
       `new HtmlWebpackPlugin({
         templateParameters:{PROJECT_NAME: "${name}"},
-        template: "./${src}/index.html",
+        template: "./${publicFolder}/index.html",
         minify: {
           removeAttributeQuotes: true,
           collapseWhitespace: true,
@@ -37,7 +37,15 @@ module.exports = ({ name, entry, inFolder: src, outFolder: dist }) => ({
     `new MiniCssExtractPlugin({
       filename: "[name].[hash].css"
     })`,
-    `new CleanWebpackPlugin()`
+    `new CleanWebpackPlugin()`,
+    `new CopyWebpackPlugin([
+			{
+				from: "${publicFolder}",
+				to: "./",
+				toType: "dir",
+				ignore: [".DS_Store", "index.html"],
+			}
+		])`
   ],
   module: {
     rules: [

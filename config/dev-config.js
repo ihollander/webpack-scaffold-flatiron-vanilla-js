@@ -1,4 +1,4 @@
-module.exports = ({ name, entry, inFolder: src, outFolder: dist }) => ({
+module.exports = ({ name, entry, inFolder: src, outFolder: dist, publicFolder }) => ({
   mode: `"development"`,
   entry: {
     main: `"./${src}/${entry}.js"`,
@@ -8,7 +8,20 @@ module.exports = ({ name, entry, inFolder: src, outFolder: dist }) => ({
     path: `path.resolve(__dirname, "${dist}")`
   },
   plugins: [
-    `new HtmlWebpackPlugin({templateParameters:{PROJECT_NAME: "${name}"},template: './${src}/index.html'})`
+    `new HtmlWebpackPlugin({
+      templateParameters: {
+        PROJECT_NAME: "${name}"
+      },
+      template: './${publicFolder}/index.html'
+    })`,
+    `new CopyWebpackPlugin([
+			{
+				from: "${publicFolder}",
+				to: "./",
+				toType: "dir",
+				ignore: [".DS_Store", "index.html"],
+			}
+		])`
   ],
   module: {
     rules: [

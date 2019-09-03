@@ -1,7 +1,7 @@
 const Generator = require('yeoman-generator');
 const { List, Input, InputValidate } = require('@webpack-cli/webpack-scaffold');
 
-const createProdConfig = require( './config/prod-config' );
+const createProdConfig = require('./config/prod-config');
 const createDevConfig = require('./config/dev-config');
 const createPackageJson = require('./config/package-json');
 const createGitignore = require('./config/gitignore');
@@ -60,9 +60,10 @@ module.exports = class WebpackGenerator extends Generator {
       this.options.env.configuration.dev.webpackOptions = createDevConfig(this.answers)
       this.options.env.configuration.dev.topScope = [
         "const path = require('path')",
-        "const HtmlWebpackPlugin = require('html-webpack-plugin')"
+        "const HtmlWebpackPlugin = require('html-webpack-plugin')",
+        "const CopyWebpackPlugin = require('copy-webpack-plugin')"
       ]
-      this.options.env.configuration.dev.configName = 'dev'; 
+      this.options.env.configuration.dev.configName = 'dev';
 
       // PROD
       this.options.env.configuration.prod.webpackOptions = createProdConfig(this.answers)
@@ -72,10 +73,11 @@ module.exports = class WebpackGenerator extends Generator {
         "const MiniCssExtractPlugin = require('mini-css-extract-plugin')",
         "const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')",
         "const TerserPlugin = require('terser-webpack-plugin')",
-        "const HtmlWebpackPlugin = require('html-webpack-plugin')"
+        "const HtmlWebpackPlugin = require('html-webpack-plugin')",
+        "const CopyWebpackPlugin = require('copy-webpack-plugin')"
       ]
-      this.options.env.configuration.prod.configName = 'prod'; 
-      
+      this.options.env.configuration.prod.configName = 'prod';
+
     })
   }
   writing() {
@@ -89,8 +91,8 @@ module.exports = class WebpackGenerator extends Generator {
 
     // html template
     this.fs.copyTpl(
-      this.templatePath(`src/index.html`),
-      this.destinationPath(`${src}/index.html`),
+      this.templatePath(`public/index.html`),
+      this.destinationPath(`${publicFolder}/index.html`),
       { title: this.answers.name }
     );
 
@@ -98,7 +100,7 @@ module.exports = class WebpackGenerator extends Generator {
     const templates = [
       { src: 'public/favicon.ico', dist: `${publicFolder}/favicon.ico` },
       { src: 'src/index.js', dist: `${src}/${entry}.js` },
-      { src: 'src/styles/app.css', dist: `${src}/styles/app.css` }
+      { src: 'src/index.css', dist: `${src}/index.css` }
     ]
 
     templates.forEach(template => {

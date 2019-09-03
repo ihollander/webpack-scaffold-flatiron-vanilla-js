@@ -1,10 +1,17 @@
 import 'normalize.css'
-import './styles/app.css'
+import './index.css'
 
 (() => {
-  const app = document.getElementById('app');
+  const app = document.getElementById('app')
+
+  const welcome = document.createElement('h2')
+  welcome.innerText = "Welcome! The current time is:"
+  app.appendChild(welcome)
+
+  const timer = document.createElement('h1')
+  app.appendChild(timer)
 
   setInterval(() => {
-    app.textContent = `${new Date().toTimeString().split(" ")[0]}`
+    timer.textContent = `${new Date().toTimeString().split(' ')[0]}`
   }, 1000)
 })()
