@@ -112,6 +112,8 @@ module.exports = class WebpackGenerator extends Generator {
 
   }
   install() {
+    // git init
+    this.spawnCommandSync('git', ['init']);
     // => Installs dependencies
     this.installDependencies(this.manager);
   }

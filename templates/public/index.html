@@ -5,13 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="/favicon.ico">
-    <title>my-js-project</title>
+    <title><%= title %></title>
   </head>
   <body>
     <noscript>
-      <strong>We're sorry but my-js-project doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      <strong>We're sorry but <%= title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
     <div id="app">
+      <h2>Welcome to <span class="welcome"><%= title %></span></h2>
+      <h1 id="timer"></h1>
     </div>
     <footer>Scaffolded with <a href="https://github.com/ihollander/webpack-scaffold-flatiron-vanilla-js" target="_blank">webpack-scaffold-flatiron-vanilla-js</a></footer>
   </body>

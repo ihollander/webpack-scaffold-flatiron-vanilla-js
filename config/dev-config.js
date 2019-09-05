@@ -1,5 +1,6 @@
 module.exports = ({ name, entry, inFolder: src, outFolder: dist, publicFolder }) => ({
   mode: `"development"`,
+  devtool: `"none"`,
   entry: {
     main: `"./${src}/${entry}.js"`,
   },

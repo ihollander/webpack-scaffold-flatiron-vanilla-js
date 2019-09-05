@@ -26,8 +26,10 @@ footer a {
 
 #app {
   margin: 30vh auto;
+  text-align: center;
 }
 
-#app h1, h2 {
-  text-align: center;
+#app .welcome {
+  color: red;
+  font: 1.5em cursive, sans-serif;
 }
